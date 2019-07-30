@@ -49,10 +49,9 @@ int DoWait(pid_t pid, int options) {
       if (signum == SIGTRAP) {
         break;
       } else if (signum == SIGTERM) {
-        ss << "SIGTERM received"
+        ss << "SIGTERM received";
         throw TerminateException(ss.str());
-      }
-      else if (signum == SIGCHLD) {
+      } else if (signum == SIGCHLD) {
         PtraceCont(pid);  // see issue #122
         continue;
       }
