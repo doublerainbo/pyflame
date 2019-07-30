@@ -46,9 +46,13 @@ int DoWait(pid_t pid, int options) {
     assert(progeny == pid);
     if (WIFSTOPPED(status)) {
       int signum = WSTOPSIG(status);
-      if (signum == SIGTRAP || signum == SIGTERM) {
+      if (signum == SIGTRAP) {
         break;
-      } else if (signum == SIGCHLD) {
+      } else if (signum == SIGTERM) {
+        ss << "SIGTERM received"
+        throw TerminateException(ss.str());
+      }
+      else if (signum == SIGCHLD) {
         PtraceCont(pid);  // see issue #122
         continue;
       }
