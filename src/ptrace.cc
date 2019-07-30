@@ -46,7 +46,7 @@ int DoWait(pid_t pid, int options) {
     assert(progeny == pid);
     if (WIFSTOPPED(status)) {
       int signum = WSTOPSIG(status);
-      if (signum == SIGTRAP) {
+      if (signum == SIGTRAP || signum == SIGTERM) {
         break;
       } else if (signum == SIGCHLD) {
         PtraceCont(pid);  // see issue #122
