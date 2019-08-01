@@ -442,6 +442,7 @@ int Prober::ProbeLoop(const PyFrob &frobber, std::ostream *out) {
         call_stacks.push_back({now, {{"(failed)", exc.what(), 0}}});
       }
       std::cerr << "Unexpected ptrace(2) exception: " << exc.what() << "\n";
+      goto finish;
     } catch (const std::exception &exc) {
       std::cerr << "Unexpected generic exception: " << exc.what() << "\n";
       return_code = 1;
